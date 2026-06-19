@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACROZELA Family Asset Exchange - Professional tool for managing and exchanging family assets securely.">
+    <meta name="keywords" content="Family Asset Exchange, acrozela Family Asset Exchange, Asset Management, India Asset Tool">
+    <title>ACROZELA FAMILY ASSET EXCHANGE</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        header h1 {
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Asset Form */
+        .asset-form {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--secondary-color);
+        }
+
+        input, select {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-add {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1.45rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-add:hover {
+            opacity: 0.9;
+        }
+
+        /* Dashboard/List Table */
+        .asset-list-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            display: none; /* Hidden when empty */
+        }
+
+        th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .delete-btn {
+            color: var(--danger);
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer h2 {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .stat-card p {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ACROZELA FAMILY ASSET EXCHANGE</h1>
+    </header>
+
+    <div class="container">
+        <!-- Dashboard Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Asset Value</h3>
+                <p id="totalValue">₹0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Asset Count</h3>
+                <p id="assetCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Members</h3>
+                <p id="memberCount">0</p>
+            </div>
+        </div>
+
+        <!-- Add Asset Tool -->
+        <div class="asset-form">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>ASSET NAME</label>
+                    <input type="text" id="assetName" placeholder="e.g. Property, Gold, Shares">
+                </div>
+                <div class="input-group">
+                    <label>VALUATION (INR)</label>
+                    <input type="number" id="assetValue" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label>MEMBER ALLOCATION</label>
+                    <input type="text" id="assetOwner" placeholder="Family Member Name">
+                </div>
+                <div class="input-group">
+                    <button class="btn-add" onclick="addAsset()">ADD ASSET</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Asset Dashboard List -->
+        <div class="asset-list-container" id="dashboardUI">
+            <div id="emptyState" class="empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem; opacity: 0.5;">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <p>Dashboard is empty. Start by adding a family asset above.</p>
+            </div>
+
+            <table id="assetTable">
+                <thead>
+                    <tr>
+                        <th>Asset Name</th>
+                        <th>Member</th>
+                        <th>Value (INR)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="assetBody">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <h2>ACROZELA FAMILY ASSET EXCHANGE</h2>
+        <p>DEVELOPED BY ACROZELA TECH</p>
+    </footer>
+
+    <script>
+        // State Management
+        let assets = JSON.parse(localStorage.getItem('acrozela_assets')) || [];
+
+        // Formatting Currency
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(num);
+        };
+
+        // Real-time UI Update
+        function updateUI() {
+            const assetBody = document.getElementById('assetBody');
+            const assetTable = document.getElementById('assetTable');
+            const emptyState = document.getElementById('emptyState');
+            const totalValueEl = document.getElementById('totalValue');
+            const assetCountEl = document.getElementById('assetCount');
+            const memberCountEl = document.getElementById('memberCount');
+
+            // Toggle Empty State
+            if (assets.length === 0) {
+                assetTable.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                assetTable.style.display = 'table';
+                emptyState.style.display = 'none';
+            }
+
+            // Clear and Rebuild Table
+            assetBody.innerHTML = '';
+            let totalValue = 0;
+            let members = new Set();
+
+            assets.forEach((asset, index) => {
+                totalValue += parseFloat(asset.value);
+                members.add(asset.owner.toLowerCase().trim());
+
+                const row = `
+                    <tr>
+                        <td style="font-weight: 600;">${asset.name.toUpperCase()}</td>
+                        <td>${asset.owner.toUpperCase()}</td>
+                        <td style="color: var(--primary-color); font-weight: 700;">${formatCurrency(asset.value)}</td>
+                        <td><button class="delete-btn" onclick="deleteAsset(${index})">REMOVE</button></td>
+                    </tr>
+                `;
+                assetBody.innerHTML += row;
+            });
+
+            // Update Stats
+            totalValueEl.innerText = formatCurrency(totalValue);
+            assetCountEl.innerText = assets.length;
+            memberCountEl.innerText = members.size;
+
+            // Save to LocalStorage
+            localStorage.setItem('acrozela_assets', JSON.stringify(assets));
+        }
+
+        // Add Asset Function
+        function addAsset() {
+            const name = document.getElementById('assetName').value;
+            const value = document.getElementById('assetValue').value;
+            const owner = document.getElementById('assetOwner').value;
+
+            if (!name || !value || !owner) {
+                alert("Please fill all fields to record the asset.");
+                return;
+            }
+
+            const newAsset = {
+                name,
+                value,
+                owner
+            };
+
+            assets.push(newAsset);
+            updateUI();
+
+            // Clear inputs
+            document.getElementById('assetName').value = '';
+            document.getElementById('assetValue').value = '';
+            document.getElementById('assetOwner').value = '';
+        }
+
+        // Delete Asset Function
+        function deleteAsset(index) {
+            if(confirm("Are you sure you want to remove this family asset?")) {
+                assets.splice(index, 1);
+                updateUI();
+            }
+        }
+
+        // Initial Load
+        window.onload = updateUI;
+    </script>
+</body>
+</html>
